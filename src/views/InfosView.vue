@@ -1,29 +1,32 @@
 <script setup>
 import H1 from '@/components/typographie/H1.vue';
+import Button from '@/components/Button.vue';
 //import TextField from '@/components/form/TextField.vue';
 </script>
 
 
 <template>
     <div>
-      <H1>Infos here</H1>
+      <H1>Infos über dich</H1>
       <form>
         <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="name">
+          
+          <input type="text" id="name" name="name" placeholder ="Name">
         </div>
         <div>
-          <label for="eigenkapital">Verfügbares Eigenkapital:</label>
-          <input type="number" id="eigenkapital" name="eigenkapital">
+          <input type="number" id="eigenkapital" name="eigenkapital" placeholder="Verfügbares Eigenkapital">
         </div>
         <div>
-          <label for="steuerklasse">Steuerklasse:</label>
-          <input type="text" id="steuerklasse" name="steuerklasse">
+          <input type="text" id="steuerklasse" name="steuerklasse" placeholder="Steuerklasse">
         </div>
         <div>
-          <label for="einkommen">Jahres Einkommen:</label>
-          <input type="number" id="einkommen" name="einkommen">
+            <input type="number" id="einkommen" name="einkommen" placeholder="Jahreseinkommen $">
         </div>
+        <RouterLink to="/">
+        <Button>
+          Speichern
+          </Button>
+        </RouterLink>
       </form>
     </div>
   </template>

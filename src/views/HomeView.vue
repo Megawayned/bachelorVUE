@@ -39,14 +39,19 @@ import Button from '@/components/Button.vue';
         </Button>
       </RouterLink>
     </div>
-
-
-
-
+    <div>
     <RouterLink to="/new-project">
       <Button>
         New Project
       </Button>
     </RouterLink>
+  </div>
+    <div>
+    <RouterLink to="/projects">
+        <Button>
+          Details
+        </Button>
+        </RouterLink>
+      </div>
   </main>
 </template>
