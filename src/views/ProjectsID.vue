@@ -26,6 +26,9 @@ import StatItem from '@/components/stats/StatItem.vue';
     </Stats>
     </form>
     <div>
+        <H3>Profitabilität</H3>
+    </div>
+    <div>
         <H3>Finanzierungsoptionen</H3>
     </div>
     <div>
@@ -38,6 +41,13 @@ import StatItem from '@/components/stats/StatItem.vue';
         <RouterLink to="project-id">
             <Button>
             Anlegen
+        </Button>
+        </RouterLink>
+        </div>
+        <div>
+        <RouterLink to="kredit-details">
+            <Button>
+            Details ansehen
         </Button>
         </RouterLink>
         </div>

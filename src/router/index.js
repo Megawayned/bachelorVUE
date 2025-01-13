@@ -20,12 +20,12 @@ const router = createRouter({
     {
       path: '/projects',
       name: 'projects',
-      component: () => import('../views/ProjectsView.vue'),
+      component: () => import('../views/ProjectsID.vue'),
     },
     {
       path: '/project-id',
       name: 'projects-id',
-      component: () => import('../views/ProjectIDView.vue'),
+      component: () => import('../views/FinanzierungsOption.vue'),
     },
     
     {
@@ -37,6 +37,11 @@ const router = createRouter({
       path: '/edit-profile',
       name: 'edit-project',
       component: () => import('../views/InfosView.vue'),
+    },
+    {
+      path: '/kredit-details',
+      name: 'kredit-details',
+      component: () => import('../views/SparkassenKreditDetails.vue'),
     },
   ],
 })
