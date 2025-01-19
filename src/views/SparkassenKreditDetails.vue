@@ -23,9 +23,6 @@ import StatItem from '@/components/stats/StatItem.vue';
       <StatItem title="Zinsbindung" value="10 Jahre" />
     </Stats>
     </form>
- 
 </template>
-
-
 <script setup>
 </script>
