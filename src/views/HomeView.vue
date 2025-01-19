@@ -6,7 +6,23 @@ import H3 from '@/components/typographie/H3.vue';
 import Stats from '@/components/stats/Stats.vue';
 import StatItem from '@/components/stats/StatItem.vue';
 import Button from '@/components/Button.vue';
+import EmptyStates from '@/components/EmptyStates.vue';
+import StackedList from '@/components/list/StackedList.vue';
+import StackedListItem from '@/components/list/StackedListItem.vue';
+import ContextMenu from '@/components/contextMenu/ContextMenu.vue';
+import ContextMenuItem from '@/components/contextMenu/ContextMenuItem.vue';
 
+import { storeToRefs } from 'pinia'
+import { useProjectsStore } from '@/stores/projects'
+
+const projects = useProjectsStore();
+const { allProjects } = storeToRefs(projects);
+
+
+function deleteProject(projectId) {
+  projects.deleteProject(projectId);
+
+}
 </script>
 
 <template>
@@ -39,19 +55,29 @@ import Button from '@/components/Button.vue';
         </Button>
       </RouterLink>
     </div>
-    <div>
-    <RouterLink to="/new-project">
-      <Button>
-        New Project
-      </Button>
-    </RouterLink>
-  </div>
-    <div>
-    <RouterLink to="/projects">
-        <Button>
-          Details
-        </Button>
+    <div v-if="allProjects.length === 0">
+      <EmptyStates title="Keine Projekte" description="Starte mit deinem ersten Projekt">
+        <RouterLink to="/new-project">
+          <Button>
+            New Project
+          </Button>
         </RouterLink>
-      </div>
+      </EmptyStates>
+    </div>
+
+    <StackedList>
+      <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="project.kaufpreis"
+        :sarnierungskosten="project.sarnierungskosten" :stadt="project.stadt" :plz="project.plz"
+        :bundesland="project.bundesland">
+        <ContextMenu>
+          <ContextMenuItem :link="'/new-project?edit=' + project.id" name="Edit" />
+          <ContextMenuItem v-on:click="deleteProject(project.id)" link="/" name="Delete" />
+        </ContextMenu>
+      </StackedListItem>
+    </StackedList>
+    <div>
+     
+    </div>
+
   </main>
 </template>
