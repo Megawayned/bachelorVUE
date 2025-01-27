@@ -13,10 +13,19 @@ import ContextMenu from '@/components/contextMenu/ContextMenu.vue';
 import ContextMenuItem from '@/components/contextMenu/ContextMenuItem.vue';
 
 import { storeToRefs } from 'pinia'
+
 import { useProjectsStore } from '@/stores/projects'
+import { useUserStore } from '@/stores/user';
+
+
+const userStore = useUserStore();
+const { user } = storeToRefs(userStore);
+
+
 
 const projects = useProjectsStore();
 const { allProjects } = storeToRefs(projects);
+
 
 
 function deleteProject(projectId) {
@@ -25,12 +34,14 @@ function deleteProject(projectId) {
 }
 </script>
 
+
+
 <template>
   <main>
     <Breadcrumbs>
       <BreadcrumbHomeItem />
     </Breadcrumbs>
-    <H1>Sonjas Immobilien Portfolio</H1>
+    <H1>{{ user.name }} Immobilien Portfolio</H1>
 
     <div class="flex mt-6 items-center justify-between">
       <H3>Deine Infos</H3>
@@ -43,9 +54,9 @@ function deleteProject(projectId) {
 
 
     <Stats>
-      <StatItem title="Eigenkapital" value="100.000 €" />
-      <StatItem title="Jahreseinkommen" value="65.000 €" />
-      <StatItem title="Steuerklasse" value="1" />
+      <StatItem title="Eigenkapital" :value="user.kapital" />
+      <StatItem title="Jahreseinkommen" :value="user.einkommen" />
+      <StatItem title="Steuerklasse" :value="user.steuerklasse" />
     </Stats>
     <div class="flex mt-6 items-center justify-between">
       <H3>Deine Projekte</H3>
@@ -76,7 +87,7 @@ function deleteProject(projectId) {
       </StackedListItem>
     </StackedList>
     <div>
-     
+
     </div>
 
   </main>

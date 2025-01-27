@@ -5,10 +5,9 @@ import TwoColumnForm from '@/components/form/TwoColumnForm.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import FormDropdown from '@/components/form/FormDropDown.vue';
 
-
 import { storeToRefs } from 'pinia'
 import { useProjectsStore } from '@/stores/projects'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter();
@@ -41,10 +40,16 @@ if ("edit" in route.query) {
 
 }
 
-
-
-
-
+const totalPrice = computed(() => {
+  let multiplier = 1.12;
+  if (bundesland.value === 'Berlin') {
+    multiplier = 1.16;
+  } else if (bundesland.value !== 'Nordrhein-Westfalen') {
+    multiplier = 1.17;
+  }
+  const total = (Number(kaufpreis.value) * multiplier) + Number(sarnierungskosten.value);
+  return total.toFixed(2);
+});
 
 function addProject() {
   if (!standort.value ||
@@ -96,7 +101,11 @@ function cancelButton() {
 <template>
   <div>
     <H1 class="mb-6">{{ pageTitle }}</H1>
-    <TwoColumnForm title="Projekt Informationen" description="TBD: Hier einen beschreibenden Text einfügen.">
+    <TwoColumnForm title="Projekt Informationen" description="">
+      <div class="col-span-6">
+          <label class="block text-sm font-medium text-gray-700">Gesamt Kosten</label>
+          <p>{{ totalPrice }} €</p>
+        </div>
       <template v-slot:form>
         <FormItem v-model="standort" label="Standort/Name" identifier="street" size="sm:col-span-6" />
         <FormItem v-model="kaufpreis" label="Kaufpreis" identifier="kaufpreis" type="number" />
@@ -122,8 +131,7 @@ function cancelButton() {
           <option>Schleswig-Holstein</option>
           <option>Thüringen</option>
         </FormDropdown>
-
-
+        
       </template>
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button v-on:click.prevent="cancelButton()" type="button"
