@@ -3,9 +3,7 @@ defineProps({
     title: {
         type: String,
     },
-    value: {
-        type: String,
-    },
+    value: '',
 })
 </script>
 <template>

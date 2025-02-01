@@ -18,7 +18,7 @@ export const useUserStore = defineStore("user", {
         einkommen: state.einkommen
       };
     },
-    
+
   },
   actions: {
     updateUser(name, kapital, steuerklasse, einkommen) {

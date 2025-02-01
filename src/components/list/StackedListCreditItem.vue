@@ -3,31 +3,23 @@
 import { ref } from 'vue';
 
 defineProps({
-    name: {
+    bankname: {
         type: String,
         required: true,
     },
-    kaufpreis: {
+    kapital: {
         type: Number,
         required: true,
     },
-    sarnierungskosten: {
+    zinsen: {
         type: Number,
         required: true,
     },
-    stadt: {
-        type: String,
-        required: true,
-    },
-    plz: {
+    tilgung: {
         type: Number,
         required: true,
     },
-    bundesland: {
-        type: String,
-        required: true,
-    },
-    miete: {
+    zinsbindung: {
         type: Number,
         required: true,
     },
@@ -44,25 +36,22 @@ function toggleContextMenu() {
     <li class="flex items-center justify-between gap-x-6 py-5 px-4 bg-slate-100 rounded-md">
         <div class="min-w-0">
             <div class="flex items-start gap-x-3">
-                <p class="text-sm/6 font-semibold text-gray-900">{{ name }}</p>
+                <p class="text-sm/6 font-semibold text-gray-900">{{ bankname }}</p>
             </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
-                <p class="whitespace-nowrap">Anschaffungskosten {{ kaufpreis + sarnierungskosten }} €</p>
-                <svg viewBox="0 0 2 2" class="size-0.5 fill-current">
-                    <circle cx="1" cy="1" r="1" />
-                </svg>
-                <p class="truncate">Miete {{ miete }} €</p>
+                <p class="whitespace-nowrap">Verwendetes Eigenkapital {{ kapital }} €</p>
+
             </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
-                <p class="whitespace-nowrap">{{ plz }}</p>
+                <p class="truncate">Zinsen {{ zinsen }} %</p>
                 <svg viewBox="0 0 2 2" class="size-0.5 fill-current">
                     <circle cx="1" cy="1" r="1" />
                 </svg>
-                <p class="truncate">{{ stadt }}</p>
+                <p class="truncate">Tilgung {{ tilgung }} %</p>
                 <svg viewBox="0 0 2 2" class="size-0.5 fill-current">
                     <circle cx="1" cy="1" r="1" />
                 </svg>
-                <p class="truncate">{{ bundesland }}</p>
+                <p class="truncate">Zinsbindung {{ zinsbindung }} Jahre</p>
             </div>
         </div>
         <div class="flex flex-none items-center gap-x-4">
@@ -70,7 +59,6 @@ function toggleContextMenu() {
             <div>
                 <slot></slot>
             </div>
-
         </div>
     </li>
 </template>

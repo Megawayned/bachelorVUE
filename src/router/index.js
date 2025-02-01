@@ -27,7 +27,28 @@ const router = createRouter({
       name: 'projects-id',
       component: () => import('../views/FinanzierungsOption.vue'),
     },
-    
+
+    {
+        path: '/projects/:projectId',
+        name: 'project',
+        component: () => import('../views/FinanzierungsOption.vue'),
+        props: true,
+    },
+
+    {
+        path: '/projects/:projectId/credit',
+        name: 'project-credit',
+        component: () => import('../views/Credit.vue'),
+        props: true,
+    },
+
+    {
+        path: '/projects/:projectId/credits/:creditId',
+        name: 'credit',
+        component: () => import('../views/CreditDetails.vue'),
+        props: true,
+    },
+
     {
       path: '/new-project',
       name: 'new-project',

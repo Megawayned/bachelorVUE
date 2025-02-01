@@ -24,7 +24,7 @@ const model = defineModel()
 
 
 <template>
-   <div class="sm:col-span-3">
+   <div class="sm:col-span-6">
                     <label 
                         :for="identifier" 
                         class="block text-sm/6 font-medium text-gray-900"

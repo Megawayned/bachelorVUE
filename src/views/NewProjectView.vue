@@ -1,6 +1,5 @@
 <script setup>
 import H1 from '@/components/typographie/H1.vue';
-import Button from '@/components/Button.vue';
 import TwoColumnForm from '@/components/form/TwoColumnForm.vue';
 import FormItem from '@/components/form/FormItem.vue';
 import FormDropdown from '@/components/form/FormDropDown.vue';
@@ -15,8 +14,10 @@ const route = useRoute();
 const standort = ref();
 const kaufpreis = ref();
 const sarnierungskosten = ref();
+const marklerkostenProzent = ref(0);
 const plz = ref();
 const stadt = ref();
+const miete = ref();
 const bundesland = ref('Nordrhein-Westfalen');
 var currentProject = null;
 
@@ -26,121 +27,133 @@ const { findProjectById } = storeToRefs(projects)
 var pageTitle = 'Neues Projekt erstellen';
 
 if ("edit" in route.query) {
-  var pageTitle = 'Projekt Bearbeiten';
-  currentProject = findProjectById.value(route.query.edit);
-  if (!currentProject) {
-    router.push('/');
-  }
-  standort.value = currentProject.name;
-  kaufpreis.value = currentProject.kaufpreis;
-  sarnierungskosten.value = currentProject.sarnierungskosten;
-  plz.value = currentProject.plz;
-  stadt.value = currentProject.stadt;
-  bundesland.value = currentProject.bundesland;
-
+    var pageTitle = 'Projekt Bearbeiten';
+    currentProject = findProjectById.value(route.query.edit);
+    if (!currentProject) {
+        router.push('/');
+    }
+    standort.value = currentProject.name;
+    kaufpreis.value = currentProject.kaufpreis;
+    sarnierungskosten.value = currentProject.sarnierungskosten;
+    plz.value = currentProject.plz;
+    stadt.value = currentProject.stadt;
+    bundesland.value = currentProject.bundesland;
+    miete.value = currentProject.miete;
+    marklerkostenProzent.value = currentProject.marklerkostenProzent;
 }
 
 const totalPrice = computed(() => {
-  let multiplier = 1.12;
-  if (bundesland.value === 'Berlin') {
-    multiplier = 1.16;
-  } else if (bundesland.value !== 'Nordrhein-Westfalen') {
-    multiplier = 1.17;
-  }
-  const total = (Number(kaufpreis.value) * multiplier) + Number(sarnierungskosten.value);
-  return total.toFixed(2);
+    let multiplier = 1.12;
+    if (bundesland.value === 'Berlin') {
+        multiplier = 1.16;
+    } else if (bundesland.value !== 'Nordrhein-Westfalen') {
+        multiplier = 1.17;
+    }
+    const total = (Number(kaufpreis.value) * multiplier) + Number(sarnierungskosten.value);
+    return total.toFixed(2);
 });
 
 function addProject() {
-  if (!standort.value ||
-    !kaufpreis.value ||
-    !sarnierungskosten.value ||
-    !plz.value ||
-    !stadt.value ||
-    !bundesland.value
-  ) {
-    alert("Bitte füllen Sie alle Felder aus");
-    return;
-  }
-  if (currentProject) {
-    projects.updateProjects(
-      currentProject.id,
-      standort.value,
-      Number(kaufpreis.value),
-      Number(sarnierungskosten.value),
-      bundesland.value,
-      stadt.value,
-      Number(plz.value),
-    )
+    if (!standort.value ||
+        !kaufpreis.value ||
+        !sarnierungskosten.value ||
+        !plz.value ||
+        !stadt.value ||
+        !bundesland.value ||
+        !miete.value
+    ) {
+        alert("Bitte füllen Sie alle Felder aus");
+        return;
+    }
+    if (currentProject) {
+        projects.updateProjects(
+            currentProject.id,
+            standort.value,
+            Number(kaufpreis.value),
+            Number(sarnierungskosten.value),
+            bundesland.value,
+            stadt.value,
+            Number(plz.value),
+            Number(miete.value),
+            Number(marklerkostenProzent.value),
+        )
 
-  } else {
-    projects.addProject(
-      standort.value,
-      Number(kaufpreis.value),
-      Number(sarnierungskosten.value),
-      bundesland.value,
-      stadt.value,
-      Number(plz.value),
-    );
-  }
-  router.push('/');
+    } else {
+        projects.addProject(
+            standort.value,
+            Number(kaufpreis.value),
+            Number(sarnierungskosten.value),
+            bundesland.value,
+            stadt.value,
+            Number(plz.value),
+            Number(miete.value),
+            Number(marklerkostenProzent.value),
+        );
+    }
+    router.push('/');
 }
 
 
 function cancelButton() {
-  standort.value = "";
-  kaufpreis.value = "";
-  sarnierungskosten.value = "";
-  bundesland.value = "";
-  stadt.value = "";
-  plz.value = "";
-  router.push('/');
+    standort.value = "";
+    kaufpreis.value = "";
+    sarnierungskosten.value = "";
+    bundesland.value = "";
+    stadt.value = "";
+    plz.value = "";
+    router.push('/');
 }
 
 </script>
 <template>
-  <div>
-    <H1 class="mb-6">{{ pageTitle }}</H1>
-    <TwoColumnForm title="Projekt Informationen" description="">
-      <div class="col-span-6">
-          <label class="block text-sm font-medium text-gray-700">Gesamt Kosten</label>
-          <p>{{ totalPrice }} €</p>
-        </div>
-      <template v-slot:form>
-        <FormItem v-model="standort" label="Standort/Name" identifier="street" size="sm:col-span-6" />
-        <FormItem v-model="kaufpreis" label="Kaufpreis" identifier="kaufpreis" type="number" />
-        <FormItem v-model="sarnierungskosten" label="Sarnierungskosten" identifier="sarnierungskosten" type="number" />
-        <FormItem v-model="plz" label="PLZ" identifier="plz" type="number" />
-        <FormItem v-model="stadt" label="Stadt" identifier="stadt" />
+    <div>
+        <H1 class="mb-6">{{ pageTitle }}</H1>
+        <TwoColumnForm title="Projekt Informationen" description="">
+            <template v-slot:infos>
+                <div class="">
+                    <label class="block text-sm font-medium text-gray-700">Gesamt Kosten</label>
+                    <p>{{ totalPrice }} €</p>
+                </div>
+            </template>
+            <template v-slot:form>
+                <FormItem v-model="standort" label="Standort/Name" identifier="street" size="sm:col-span-6" />
+                <FormItem v-model="kaufpreis" label="Kaufpreis" identifier="kaufpreis" type="number" />
+                <FormItem v-model="sarnierungskosten" label="Sarnierungskosten" identifier="sarnierungskosten"
+                    type="number" />
+                <FormItem v-model="marklerkostenProzent" label="Marklerkosten in Prozent" identifier="marklerkostenProzent"
+                    type="number" />
+                <FormItem v-model="miete" label="Miete" identifier="miete" type="number" />
+                <FormItem v-model="plz" label="PLZ" identifier="plz" type="number" />
+                <FormItem v-model="stadt" label="Stadt" identifier="stadt" />
 
-        <FormDropdown v-model="bundesland" label="Bundesland" identifier="bundesland">
-          <option>Baden-Württemberg</option>
-          <option>Bayern</option>
-          <option>Berlin</option>
-          <option>Brandenburg</option>
-          <option>Bremen</option>
-          <option>Hamburg</option>
-          <option>Hessen</option>
-          <option>Niedersachsen</option>
-          <option>Mecklenburg-Vorpommern</option>
-          <option>Nordrhein-Westfalen</option>
-          <option>Rheinland-Pfalz</option>
-          <option>Saarland</option>
-          <option>Sachsen</option>
-          <option>Sachsen-Anhalt</option>
-          <option>Schleswig-Holstein</option>
-          <option>Thüringen</option>
-        </FormDropdown>
-        
-      </template>
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button v-on:click.prevent="cancelButton()" type="button"
-          class="text-sm/6 font-semibold text-gray-900">Cancel</button>
-        <button v-on:click.prevent="addProject()" type="submit"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
-      </div>
-    </TwoColumnForm>
-  </div>
+                <FormDropdown v-model="bundesland" label="Bundesland" identifier="bundesland">
+                    <option>Baden-Württemberg</option>
+                    <option>Bayern</option>
+                    <option>Berlin</option>
+                    <option>Brandenburg</option>
+                    <option>Bremen</option>
+                    <option>Hamburg</option>
+                    <option>Hessen</option>
+                    <option>Niedersachsen</option>
+                    <option>Mecklenburg-Vorpommern</option>
+                    <option>Nordrhein-Westfalen</option>
+                    <option>Rheinland-Pfalz</option>
+                    <option>Saarland</option>
+                    <option>Sachsen</option>
+                    <option>Sachsen-Anhalt</option>
+                    <option>Schleswig-Holstein</option>
+                    <option>Thüringen</option>
+                </FormDropdown>
+
+            </template>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <button v-on:click.prevent="cancelButton()" type="button"
+                    class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+                <button v-on:click.prevent="addProject()" type="submit"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+            </div>
+        </TwoColumnForm>
+    </div>
 </template>
 <script setup>
 </script>

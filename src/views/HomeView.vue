@@ -17,78 +17,72 @@ import { storeToRefs } from 'pinia'
 import { useProjectsStore } from '@/stores/projects'
 import { useUserStore } from '@/stores/user';
 
-
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
-
-
 
 const projects = useProjectsStore();
 const { allProjects } = storeToRefs(projects);
 
-
-
 function deleteProject(projectId) {
-  projects.deleteProject(projectId);
-
+    projects.deleteProject(projectId);
 }
 </script>
 
-
-
 <template>
-  <main>
-    <Breadcrumbs>
-      <BreadcrumbHomeItem />
-    </Breadcrumbs>
-    <H1>{{ user.name }} Immobilien Portfolio</H1>
+    <main>
+        <Breadcrumbs>
+            <BreadcrumbHomeItem />
+        </Breadcrumbs>
+        <H1>{{ user.name }} Immobilien Portfolio</H1>
 
-    <div class="flex mt-6 items-center justify-between">
-      <H3>Deine Infos</H3>
-      <RouterLink to="/edit-profile">
-        <Button>
-          Bearbeiten
-        </Button>
-      </RouterLink>
-    </div>
+        <div class="flex mt-6 items-center justify-between">
+            <H3>Deine Infos</H3>
+            <RouterLink to="/edit-profile">
+                <Button>
+                    Bearbeiten
+                </Button>
+            </RouterLink>
+        </div>
 
 
-    <Stats>
-      <StatItem title="Eigenkapital" :value="user.kapital" />
-      <StatItem title="Jahreseinkommen" :value="user.einkommen" />
-      <StatItem title="Steuerklasse" :value="user.steuerklasse" />
-    </Stats>
-    <div class="flex mt-6 items-center justify-between">
-      <H3>Deine Projekte</H3>
-      <RouterLink to="/new-project">
-        <Button>
-          New Project
-        </Button>
-      </RouterLink>
-    </div>
-    <div v-if="allProjects.length === 0">
-      <EmptyStates title="Keine Projekte" description="Starte mit deinem ersten Projekt">
-        <RouterLink to="/new-project">
-          <Button>
-            New Project
-          </Button>
-        </RouterLink>
-      </EmptyStates>
-    </div>
+        <Stats>
+            <StatItem title="Eigenkapital" :value="user.kapital" />
+            <StatItem title="Jahreseinkommen" :value="user.einkommen" />
+            <StatItem title="Steuerklasse" :value="user.steuerklasse" />
+        </Stats>
+        <div class="flex mt-6 items-center justify-between">
+            <H3>Deine Projekte</H3>
+            <RouterLink to="/new-project">
+                <Button>
+                    New Project
+                </Button>
+            </RouterLink>
+        </div>
+        <div v-if="allProjects.length === 0">
+            <EmptyStates title="Keine Projekte" description="Starte mit deinem ersten Projekt">
+                <RouterLink to="/new-project">
+                    <Button>
+                        New Project
+                    </Button>
+                </RouterLink>
+            </EmptyStates>
+        </div>
 
-    <StackedList>
-      <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="project.kaufpreis"
-        :sarnierungskosten="project.sarnierungskosten" :stadt="project.stadt" :plz="project.plz"
-        :bundesland="project.bundesland">
-        <ContextMenu>
-          <ContextMenuItem :link="'/new-project?edit=' + project.id" name="Edit" />
-          <ContextMenuItem v-on:click="deleteProject(project.id)" link="/" name="Delete" />
-        </ContextMenu>
-      </StackedListItem>
-    </StackedList>
-    <div>
-
-    </div>
-
-  </main>
+        <StackedList>
+            <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="project.kaufpreis"
+                :sarnierungskosten="project.sarnierungskosten" :miete="project.miete" :stadt="project.stadt"
+                :plz="project.plz" :bundesland="project.bundesland">
+                <template v-slot:onItemOptions>
+                    <RouterLink :to="'/projects/' + project.id"
+                        class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
+                        View Project
+                    </RouterLink>
+                </template>
+                <ContextMenu>
+                    <ContextMenuItem :link="'/new-project?edit=' + project.id" name="Edit" />
+                    <ContextMenuItem v-on:click="deleteProject(project.id)" link="/" name="Delete" />
+                </ContextMenu>
+            </StackedListItem>
+        </StackedList>
+    </main>
 </template>
