@@ -10,6 +10,7 @@ import BreadcrumbItem from '@/components/navigation/BreadcrumbItem.vue';
 import { Bar } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { ref } from 'vue'
+import { restSchuldBerechung, toEuro } from "@/functions";
 
 import { storeToRefs } from 'pinia';
 import { useProjectsStore } from '@/stores/projects';
@@ -50,17 +51,6 @@ for (var i = 1; i <= currentCredit.zinsbindung; i++) {
     restSchuld = restSchuldBerechung(restSchuld, 12, monatsRate, currentCredit.zinsen);
 
     chartDataset.push(restSchuld);
-}
-
-function toEuro(euros) {
-    return Math.floor(euros * 100) / 100;
-}
-
-function restSchuldBerechung(schuld, monate, monatsRate, zinsen) {
-    var q = 1 + zinsen / 1200;
-    var restSchuld = toEuro(schuld * Math.pow(q, monate) - monatsRate * (Math.pow(q, monate) - 1) / (zinsen / 1200));
-
-    return restSchuld;
 }
 
 const chartData = {
