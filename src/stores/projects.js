@@ -6,7 +6,8 @@ import { useTaxStore } from '@/stores/tax';
 const notarkosten = 0.02;
 
 function anschaffungskostenRechner(kaufpreis, sarnierungskosten, steuersatz, notarsatz, marklersatz) {
- return kaufpreis * (1 + steuersatz + notarsatz + marklersatz) + sarnierungskosten;
+ 
+ return kaufpreis * (1 + steuersatz + notarsatz ) + sarnierungskosten;
 }
 
 export const useProjectsStore = defineStore("projects", {
