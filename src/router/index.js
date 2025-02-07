@@ -55,11 +55,7 @@ const router = createRouter({
       name: 'edit-project',
       component: () => import('../views/InfosView.vue'),
     },
-    {
-      path: '/kredit-details',
-      name: 'kredit-details',
-      component: () => import('../views/SparkassenKreditDetails.vue'),
-    },
+  
   ],
 })
 
