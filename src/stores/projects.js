@@ -1,87 +1,121 @@
 import { defineStore } from "pinia";
-import { storeToRefs } from 'pinia'
-import { useTaxStore } from '@/stores/tax';
-import { formatNumber } from '@/functions';
+import { storeToRefs } from "pinia";
+import { useTaxStore } from "@/stores/tax";
+import { formatNumber } from "@/functions";
 
 const notarkosten = 0.02;
 
-function anschaffungskostenRechner(kaufpreis, sarnierungskosten, steuersatz, notarsatz, marklersatz) {
-    const anschaffungskosten = kaufpreis * (1 + steuersatz + notarsatz + marklersatz) + sarnierungskosten;
-    return Math.round(anschaffungskosten * 100) / 100; 
+function anschaffungskostenRechner(
+  kaufpreis,
+  sarnierungskosten,
+  steuersatz,
+  notarsatz,
+  marklersatz
+) {
+  const anschaffungskosten =
+    kaufpreis * (1 + steuersatz + notarsatz + marklersatz) + sarnierungskosten;
+  return Math.round(anschaffungskosten * 100) / 100;
 }
 
 export const useProjectsStore = defineStore("projects", {
-    state: () => ({
-        projects: [],
-        nextId: 2,
-    }),
-    getters: {
-        allProjects(state) {
-            return state.projects;
-        },
-        findProjectById: (state) => {
-            return (projectId) =>
-                state.projects.find((project) => project.id == projectId);
-        },
+  state: () => ({
+    projects: [],
+    nextId: 2,
+  }),
+  getters: {
+    allProjects(state) {
+      return state.projects;
     },
-    actions: {
-        addProject(name, kaufpreis, sarnierungskosten, bundesland, stadt, plz, miete, marklerkostenProzent) {
-            const tax = useTaxStore();
-            const { steuerByBundesland } = storeToRefs(tax);
-
-            const steuersatz = steuerByBundesland.value(bundesland);
-            const anschaffungskosten = anschaffungskostenRechner(
-                kaufpreis, sarnierungskosten, steuersatz, notarkosten, marklerkostenProzent / 100
-            );
-
-            this.projects.push({
-                id: this.nextId++,
-                name,
-                kaufpreis,
-                sarnierungskosten,
-                bundesland,
-                stadt,
-                plz,
-                miete,
-                marklerkostenProzent,
-                anschaffungskosten,
-            });
-        },
-        updateProjects(id, name, kaufpreis, sarnierungskosten, bundesland, stadt, plz, miete, marklerkostenProzent) {
-            const projectIndex = this.projects.findIndex(
-                (project) => project.id == id
-            );
-            if (projectIndex !== -1) {
-                const tax = useTaxStore();
-                const { steuerByBundesland } = storeToRefs(tax);
-
-                const steuersatz = steuerByBundesland.value(bundesland);
-                const anschaffungskosten = anschaffungskostenRechner(
-                    kaufpreis, sarnierungskosten, steuersatz, notarkosten, marklerkostenProzent / 100
-                );
-
-                this.projects[projectIndex] = {
-                    id,
-                    name,
-                    kaufpreis,
-                    sarnierungskosten,
-                    bundesland,
-                    stadt,
-                    plz,
-                    miete,
-                    marklerkostenProzent,
-                    anschaffungskosten,
-                };
-            }
-        },
-        deleteProject(id) {
-            const projectIndex = this.projects.findIndex(
-                (project) => project.id == id
-            );
-            if (projectIndex !== -1) {
-                this.projects.splice(projectIndex, 1);
-            }
-        },
+    findProjectById: (state) => {
+      return (projectId) =>
+        state.projects.find((project) => project.id == projectId);
     },
-    persist: true,
+  },
+  actions: {
+    addProject(
+      name,
+      kaufpreis,
+      sarnierungskosten,
+      bundesland,
+      stadt,
+      plz,
+      miete,
+      marklerkostenProzent
+    ) {
+      const tax = useTaxStore();
+      const { steuerByBundesland } = storeToRefs(tax);
+
+      const steuersatz = steuerByBundesland.value(bundesland);
+      const anschaffungskosten = anschaffungskostenRechner(
+        kaufpreis,
+        sarnierungskosten,
+        steuersatz,
+        notarkosten,
+        marklerkostenProzent / 100
+      );
+
+      this.projects.push({
+        id: this.nextId++,
+        name,
+        kaufpreis,
+        sarnierungskosten,
+        bundesland,
+        stadt,
+        plz,
+        miete,
+        marklerkostenProzent,
+        anschaffungskosten,
+      });
+    },
+    updateProjects(
+      id,
+      name,
+      kaufpreis,
+      sarnierungskosten,
+      bundesland,
+      stadt,
+      plz,
+      miete,
+      marklerkostenProzent
+    ) {
+      const projectIndex = this.projects.findIndex(
+        (project) => project.id == id
+      );
+      if (projectIndex !== -1) {
+        const tax = useTaxStore();
+        const { steuerByBundesland } = storeToRefs(tax);
+
+        const steuersatz = steuerByBundesland.value(bundesland);
+        const anschaffungskosten = anschaffungskostenRechner(
+          kaufpreis,
+          sarnierungskosten,
+          steuersatz,
+          notarkosten,
+          marklerkostenProzent / 100
+        );
+
+        this.projects[projectIndex] = {
+          id,
+          name,
+          kaufpreis,
+          sarnierungskosten,
+          bundesland,
+          stadt,
+          plz,
+          miete,
+          marklerkostenProzent,
+          anschaffungskosten,
+        };
+      }
+    },
+    deleteProject(id) {
+      const projectIndex = this.projects.findIndex(
+        (project) => project.id == id
+      );
+      if (projectIndex !== -1) {
+        this.projects.splice(projectIndex, 1);
+      }
+    },
+  },
+  persist: true,
 });

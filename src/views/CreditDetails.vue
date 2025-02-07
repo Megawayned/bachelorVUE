@@ -102,15 +102,15 @@ const zinsenNeu = ref(3);
         <div class="felx flex-row">
             <label class="block" for="zinsenPessimistisch">Zinsen in %</label>
             <input v-model="zinsenNeu" type="number" name="zinsenPessimistisch" id="zinsenPessimistisch"
-            class="block rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                class="block rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
         </div>
     </div>
     <Stats>
-        <StatItem title="Benötigter Kredit"
-            :value="formatNumber(toEuro(restSchuld)) + ' €'" />
+        <StatItem title="Benötigter Kredit" :value="formatNumber(toEuro(restSchuld)) + ' €'" />
         <StatItem title="Zinsen" :value="formatNumber(zinsenNeu) + ' %'" />
         <StatItem title="Tilgung" :value="formatNumber(currentCredit.tilgung) + ' %'" />
-        <StatItem title="Monatsrate" :value="formatNumber(toEuro(restSchuld * ((zinsenNeu + currentCredit.tilgung) / 100) / 12))  + ' €'" />
+        <StatItem title="Monatsrate"
+            :value="formatNumber(toEuro(restSchuld * ((zinsenNeu + currentCredit.tilgung) / 100) / 12)) + ' €'" />
         <StatItem title="Angenommene Zinsbindung" value="10 Jahre" />
         <StatItem title="Restschuld nach Zinsbindung" :value="formatNumber(restSchuldBerechung(
             restSchuld,

@@ -97,7 +97,8 @@ function deleteCredit(creditId) {
                 </RouterLink>
             </template>
             <ContextMenu>
-                <ContextMenuItem :link="'/projects/' + currentProject.id + '/credit?edit=' + credit.id" name="Bearbeiten" />
+                <ContextMenuItem :link="'/projects/' + currentProject.id + '/credit?edit=' + credit.id"
+                    name="Bearbeiten" />
                 <ContextMenuItem v-on:click="deleteCredit(credit.id)" link="#" name="Löschen" />
             </ContextMenu>
         </StackedListCreditItem>

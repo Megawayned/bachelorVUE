@@ -7,7 +7,6 @@ export const useUserStore = defineStore("user", {
     kapital: null,
     steuerklasse: null,
     einkommen: null,
-
   }),
   getters: {
     user(state) {
@@ -15,18 +14,17 @@ export const useUserStore = defineStore("user", {
         name: state.name,
         kapital: state.kapital,
         steuerklasse: state.steuerklasse,
-        einkommen: state.einkommen
+        einkommen: state.einkommen,
       };
     },
-
   },
   actions: {
     updateUser(name, kapital, steuerklasse, einkommen) {
       this.name = name;
       this.kapital = kapital;
       this.steuerklasse = steuerklasse;
-      this.einkommen = einkommen
-    }
+      this.einkommen = einkommen;
+    },
   },
   persist: true,
 });

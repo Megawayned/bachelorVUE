@@ -31,8 +31,8 @@ var currentCredit = null;
 
 const bank = ref('Kreissparkasse Köln');
 const verwendetesEigenkapital = ref(10000);
-const zinsen = ref(2,5);
-const tilgung = ref(2,5);
+const zinsen = ref(2, 5);
+const tilgung = ref(2, 5);
 const zinsbindung = ref(10);
 
 var pageTitle = 'Neue Finanizierugsoption';
@@ -79,7 +79,7 @@ function addCredit() {
             Number(zinsbindung.value),
         );
     }
-    else{
+    else {
         credits.addCredit(
             Number(currentProject.id),
             bank.value,

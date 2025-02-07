@@ -2,8 +2,8 @@
 
 </script>
 
-<template>  
+<template>
      <h1 class="text-3xl mt-4">
           <slot></slot>
-     </h1> 
+     </h1>
 </template>
