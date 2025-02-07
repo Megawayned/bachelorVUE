@@ -47,7 +47,7 @@ function toggleContextMenu() {
                 <p class="text-sm/6 font-semibold text-gray-900">{{ name }}</p>
             </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-gray-500">
-                <p class="whitespace-nowrap">Anschaffungskosten {{ kaufpreis + sarnierungskosten }} €</p>
+                <p class="whitespace-nowrap">Anschaffungskosten {{ kaufpreis}} €</p>
                 <svg viewBox="0 0 2 2" class="size-0.5 fill-current">
                     <circle cx="1" cy="1" r="1" />
                 </svg>

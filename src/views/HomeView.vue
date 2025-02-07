@@ -74,7 +74,7 @@ function deleteProject(projectId) {
         </div>
 
         <StackedList>
-            <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="project.anschaffungskosten"
+            <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="formatNumber(project.anschaffungskosten)"
                 :sarnierungskosten="formatNumber(project.sarnierungskosten)" :miete="formatNumber(project.miete)" :stadt="project.stadt"
                 :plz="project.plz" :bundesland="project.bundesland">
                 <template v-slot:onItemOptions>
