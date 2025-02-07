@@ -4,31 +4,24 @@ import { ref } from 'vue';
 
 defineProps({
     name: {
-        type: String,
         required: true,
     },
     kaufpreis: {
-        type: Number,
         required: true,
     },
     sarnierungskosten: {
-        type: Number,
         required: true,
     },
     stadt: {
-        type: String,
         required: true,
     },
     plz: {
-        type: Number,
         required: true,
     },
     bundesland: {
-        type: String,
         required: true,
     },
     miete: {
-        type: Number,
         required: true,
     },
 })
