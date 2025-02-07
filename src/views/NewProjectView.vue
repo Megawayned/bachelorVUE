@@ -100,15 +100,16 @@ function cancelButton() {
         <H1 class="mb-6">{{ pageTitle }}</H1>
         <TwoColumnForm title="Projektinformationen" description="">
             <template v-slot:infos>
-               
+
             </template>
             <template v-slot:form>
-                <FormItem v-model="standort" label="Standort / Name des Projekts" identifier="street" size="sm:col-span-6" />
+                <FormItem v-model="standort" label="Standort / Name des Projekts" identifier="street"
+                    size="sm:col-span-6" />
                 <FormItem v-model="kaufpreis" label="Kaufpreis" identifier="kaufpreis" type="number" />
                 <FormItem v-model="sarnierungskosten" label="Sanierungskosten" identifier="sanierungskosten"
                     type="number" />
-                <FormItem v-model="marklerkostenProzent" label="Maklerkosten in Prozent" identifier="marklerkostenProzent"
-                    type="number" />
+                <FormItem v-model="marklerkostenProzent" label="Maklerkosten in Prozent"
+                    identifier="marklerkostenProzent" type="number" />
                 <FormItem v-model="miete" label="Monatliche Mieteinnahmen" identifier="miete" type="number" />
                 <FormItem v-model="plz" label="PLZ" identifier="plz" type="number" />
                 <FormItem v-model="stadt" label="Stadt" identifier="stadt" />

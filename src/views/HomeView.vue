@@ -38,7 +38,7 @@ function deleteProject(projectId) {
             <BreadcrumbItem title="Projekte" link="/" />
 
         </Breadcrumbs>
-    
+
         <H1>{{ user.name }}'s Immobilienportfolio</H1>
 
         <div class="flex mt-6 items-center justify-between">
@@ -70,13 +70,14 @@ function deleteProject(projectId) {
                     </Button>
                 </RouterLink>
             </EmptyStates>
-            
+
         </div>
 
         <StackedList>
-            <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="formatNumber(project.anschaffungskosten)"
-                :sarnierungskosten="formatNumber(project.sarnierungskosten)" :miete="formatNumber(project.miete)" :stadt="project.stadt"
-                :plz="project.plz" :bundesland="project.bundesland">
+            <StackedListItem v-for="project in allProjects" :name="project.name"
+                :kaufpreis="formatNumber(project.anschaffungskosten)"
+                :sarnierungskosten="formatNumber(project.sarnierungskosten)" :miete="formatNumber(project.miete)"
+                :stadt="project.stadt" :plz="project.plz" :bundesland="project.bundesland">
                 <template v-slot:onItemOptions>
                     <RouterLink :to="'/projects/' + project.id"
                         class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
