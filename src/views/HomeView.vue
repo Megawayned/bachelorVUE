@@ -16,6 +16,7 @@ import { storeToRefs } from 'pinia'
 
 import { useProjectsStore } from '@/stores/projects'
 import { useUserStore } from '@/stores/user';
+import { formatNumber } from '@/functions';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
@@ -26,6 +27,7 @@ const { allProjects } = storeToRefs(projects);
 function deleteProject(projectId) {
     projects.deleteProject(projectId);
 }
+
 </script>
 
 <template>
@@ -33,6 +35,7 @@ function deleteProject(projectId) {
         <Breadcrumbs>
             <BreadcrumbHomeItem />
         </Breadcrumbs>
+    
         <H1>{{ user.name }}'s Immobilien Portfolio</H1>
 
         <div class="flex mt-6 items-center justify-between">
@@ -44,8 +47,8 @@ function deleteProject(projectId) {
             </RouterLink>
         </div>
         <Stats>
-            <StatItem title="Eigenkapital" :value="user.kapital" />
-            <StatItem title="Jahreseinkommen" :value="user.einkommen" />
+            <StatItem title="Eigenkapital" :value="formatNumber(user.kapital)" />
+            <StatItem title="Jahreseinkommen" :value="formatNumber(user.einkommen)" />
             <StatItem title="Steuerklasse" :value="user.steuerklasse" />
         </Stats>
         <div class="flex mt-6 items-center justify-between">
@@ -64,11 +67,12 @@ function deleteProject(projectId) {
                     </Button>
                 </RouterLink>
             </EmptyStates>
+            
         </div>
 
         <StackedList>
             <StackedListItem v-for="project in allProjects" :name="project.name" :kaufpreis="project.anschaffungskosten"
-                :sarnierungskosten="project.sarnierungskosten" :miete="project.miete" :stadt="project.stadt"
+                :sarnierungskosten="formatNumber(project.sarnierungskosten)" :miete="formatNumber(project.miete)" :stadt="project.stadt"
                 :plz="project.plz" :bundesland="project.bundesland">
                 <template v-slot:onItemOptions>
                     <RouterLink :to="'/projects/' + project.id"

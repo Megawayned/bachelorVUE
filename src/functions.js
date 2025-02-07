@@ -8,3 +8,12 @@ export function restSchuldBerechung(schuld, monate, monatsRate, zinsen) {
 
     return restSchuld;
 }
+
+export function formatNumber(number) {
+    const roundedNumber = Math.round(number * 100) / 100;
+    return roundedNumber.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+export function formatNumberWithCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}

@@ -1,13 +1,13 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { storeToRefs } from 'pinia'
 import { useTaxStore } from '@/stores/tax';
+import { formatNumber } from '@/functions';
 
 const notarkosten = 0.02;
 
 function anschaffungskostenRechner(kaufpreis, sarnierungskosten, steuersatz, notarsatz, marklersatz) {
- 
- return kaufpreis * (1 + steuersatz + notarsatz ) + sarnierungskosten;
+    const anschaffungskosten = kaufpreis * (1 + steuersatz + notarsatz + marklersatz) + sarnierungskosten;
+    return Math.round(anschaffungskosten * 100) / 100; 
 }
 
 export const useProjectsStore = defineStore("projects", {
@@ -26,7 +26,6 @@ export const useProjectsStore = defineStore("projects", {
     },
     actions: {
         addProject(name, kaufpreis, sarnierungskosten, bundesland, stadt, plz, miete, marklerkostenProzent) {
-
             const tax = useTaxStore();
             const { steuerByBundesland } = storeToRefs(tax);
 
@@ -48,15 +47,7 @@ export const useProjectsStore = defineStore("projects", {
                 anschaffungskosten,
             });
         },
-        updateProjects(id, name,
-            kaufpreis,
-            sarnierungskosten,
-            bundesland,
-            stadt,
-            plz,
-            miete,
-            marklerkostenProzent,
-        ) {
+        updateProjects(id, name, kaufpreis, sarnierungskosten, bundesland, stadt, plz, miete, marklerkostenProzent) {
             const projectIndex = this.projects.findIndex(
                 (project) => project.id == id
             );
@@ -65,7 +56,9 @@ export const useProjectsStore = defineStore("projects", {
                 const { steuerByBundesland } = storeToRefs(tax);
 
                 const steuersatz = steuerByBundesland.value(bundesland);
-                const anschaffungskosten = kaufpreis * (1 + steuersatz + notarkosten + marklerkostenProzent / 100) + sarnierungskosten;
+                const anschaffungskosten = anschaffungskostenRechner(
+                    kaufpreis, sarnierungskosten, steuersatz, notarkosten, marklerkostenProzent / 100
+                );
 
                 this.projects[projectIndex] = {
                     id,
