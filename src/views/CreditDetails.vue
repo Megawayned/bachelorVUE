@@ -10,7 +10,7 @@ import BreadcrumbItem from '@/components/navigation/BreadcrumbItem.vue';
 import { Bar } from 'vue-chartjs';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import { ref } from 'vue'
-import { restSchuldBerechung, toEuro } from "@/functions";
+import { restSchuldBerechung, toEuro, formatNumber } from "@/functions";
 
 import { storeToRefs } from 'pinia';
 import { useProjectsStore } from '@/stores/projects';
@@ -87,12 +87,12 @@ const zinsenNeu = ref(3);
 
     <Stats>
         <StatItem title="Benötigter Kredit"
-            :value="currentProject.anschaffungskosten - currentCredit.verwendetesEigenkapital + ' €'" />
-        <StatItem title="Zinsen" :value="currentCredit.zinsen + ' %'" />
-        <StatItem title="Tilgung" :value="currentCredit.tilgung + ' %'" />
+            :value="formatNumber(currentProject.anschaffungskosten - currentCredit.verwendetesEigenkapital) + ' €'" />
+        <StatItem title="Zinsen" :value="formatNumber(currentCredit.zinsen) + ' %'" />
+        <StatItem title="Tilgung" :value="formatNumber(currentCredit.tilgung) + ' %'" />
         <StatItem title="Zinsbindung" :value="currentCredit.zinsbindung + ' Jahre'" />
-        <StatItem title="Monatsrate" :value="toEuro(monatsRate) + ' €'" />
-        <StatItem title="Restschuld nach Zinsbindung" :value="toEuro(restSchuld) + ' €'" />
+        <StatItem title="Monatsrate" :value="formatNumber(toEuro(monatsRate)) + ' €'" />
+        <StatItem title="Restschuld nach Zinsbindung" :value="formatNumber(toEuro(restSchuld)) + ' €'" />
     </Stats>
 
     <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
@@ -107,17 +107,17 @@ const zinsenNeu = ref(3);
     </div>
     <Stats>
         <StatItem title="Benötigter Kredit"
-            :value="toEuro(restSchuld) + ' €'" />
-        <StatItem title="Zinsen" :value="zinsenNeu + ' %'" />
-        <StatItem title="Tilgung" :value="currentCredit.tilgung + ' %'" />
-        <StatItem title="Monatsrate" :value="toEuro(restSchuld * ((zinsenNeu + currentCredit.tilgung) / 100) / 12)  + ' €'" />
+            :value="formatNumber(toEuro(restSchuld)) + ' €'" />
+        <StatItem title="Zinsen" :value="formatNumber(zinsenNeu) + ' %'" />
+        <StatItem title="Tilgung" :value="formatNumber(currentCredit.tilgung) + ' %'" />
+        <StatItem title="Monatsrate" :value="formatNumber(toEuro(restSchuld * ((zinsenNeu + currentCredit.tilgung) / 100) / 12))  + ' €'" />
         <StatItem title="Angenommene Zinsbindung" value="10 Jahre" />
-        <StatItem title="Restschuld nach Zinsbindung" :value="restSchuldBerechung(
+        <StatItem title="Restschuld nach Zinsbindung" :value="formatNumber(restSchuldBerechung(
             restSchuld,
             120,
             restSchuld * ((zinsenNeu + currentCredit.tilgung) / 100) / 12,
             zinsenNeu
-        ) + ' €'" />
+        )) + ' €'" />
     </Stats>
 
 </template>

@@ -12,6 +12,7 @@ import StackedList from '@/components/list/StackedList.vue';
 import StackedListCreditItem from '@/components/list/StackedListCreditItem.vue';
 import ContextMenu from '@/components/contextMenu/ContextMenu.vue';
 import ContextMenuItem from '@/components/contextMenu/ContextMenuItem.vue';
+import { formatNumber } from '@/functions';
 
 import { storeToRefs } from 'pinia';
 import { useProjectsStore } from '@/stores/projects';
@@ -60,9 +61,9 @@ function deleteCredit(creditId) {
         </div>
 
         <Stats>
-            <StatItem title="Anschaffungskosten" :value="currentProject.anschaffungskosten + ' €'" />
-            <StatItem title="Miete" :value="currentProject.miete + ' €'" />
-            <StatItem title="Abschreibung für Abnutzung (AfA)" :value="afa + ' €'" />
+            <StatItem title="Anschaffungskosten" :value="formatNumber(currentProject.anschaffungskosten) + ' €'" />
+            <StatItem title="Miete" :value="formatNumber(currentProject.miete) + ' €'" />
+            <StatItem title="Abschreibung für Abnutzung (AfA)" :value="formatNumber(afa) + ' €'" />
         </Stats>
     </div>
 
