@@ -14,13 +14,10 @@ const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
 
 const router = useRouter();
-
-
 const name = ref(user.value.name);
 const kapital = ref(user.value.kapital);
 const steuerklasse = ref(user.value.steuerklasse);
 const einkommen = ref(user.value.einkommen);
-
 
 function updateUser() {
   userStore.updateUser(
@@ -32,11 +29,6 @@ function updateUser() {
   router.push('/');
 }
 </script>
-
-
-
-
-
 <template>
   <div>
     <H1 class="mb-6">Infos über {{ name }}</H1>
@@ -50,17 +42,10 @@ function updateUser() {
 
       </template>
     </TwoColumnForm>
-
     <form>
-
-
       <Button v-on:click="updateUser">
         Speichern
       </Button>
-
     </form>
   </div>
 </template>
-
-<script setup>
-  </script>
