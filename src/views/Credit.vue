@@ -118,10 +118,10 @@ function cancelButton() {
 
     <H1 class="mb-6">{{ pageTitle }}</H1>
 
-    <TwoColumnForm title="Kredit Informationen" description="">
+    <TwoColumnForm title="Kreditinformationen" description="">
         <template v-slot:form>
-            <FormItem v-model="bank" label="Bank (Name)" identifier="bank" />
-            <FormItem v-model="verwendetesEigenkapital" label="Zu Verwendenes Eigenkapital" identifier="kapital"
+            <FormItem v-model="bank" label="Name der Bank" identifier="bank" />
+            <FormItem v-model="verwendetesEigenkapital" label="Zu verwendendes Eigenkapital" identifier="kapital"
                 type="number" />
             <FormItem v-model="zinsen" label="Zinsen in Prozent" identifier="zinsen" type="number" />
             <FormItem v-model="tilgung" label="Tilgung in Prozent" identifier="tilgung" type="number" />

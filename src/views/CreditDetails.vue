@@ -77,7 +77,7 @@ const zinsenNeu = ref(3);
     </Breadcrumbs>
     <H1>{{ currentCredit.bankname }} Kredit für {{ currentProject.name }}</H1>
     <div class="flex mt-6 items-center justify-between">
-        <H3>Kredit Infos</H3>
+        <H3>Kreditinformationen</H3>
         <RouterLink :to="'/projects/' + currentProject.id + '/credit?edit=' + currentCredit.id">
             <Button>
                 Bearbeiten
@@ -98,7 +98,7 @@ const zinsenNeu = ref(3);
     <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
 
     <div class="flex mt-6 items-center justify-between">
-        <H3>Anschluss Finanzierung</H3>
+        <H3>Anschlussfinanzierung</H3>
         <div class="felx flex-row">
             <label class="block" for="zinsenPessimistisch">Zinsen in %</label>
             <input v-model="zinsenNeu" type="number" name="zinsenPessimistisch" id="zinsenPessimistisch"

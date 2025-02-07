@@ -33,7 +33,7 @@ function deleteProject(projectId) {
         <Breadcrumbs>
             <BreadcrumbHomeItem />
         </Breadcrumbs>
-        <H1>{{ user.name }} Immobilien Portfolio</H1>
+        <H1>{{ user.name }}'s Immobilien Portfolio</H1>
 
         <div class="flex mt-6 items-center justify-between">
             <H3>Deine Infos</H3>
@@ -43,8 +43,6 @@ function deleteProject(projectId) {
                 </Button>
             </RouterLink>
         </div>
-
-
         <Stats>
             <StatItem title="Eigenkapital" :value="user.kapital" />
             <StatItem title="Jahreseinkommen" :value="user.einkommen" />
@@ -54,7 +52,7 @@ function deleteProject(projectId) {
             <H3>Deine Projekte</H3>
             <RouterLink to="/new-project">
                 <Button>
-                    New Project
+                    Neues Projekt
                 </Button>
             </RouterLink>
         </div>
@@ -62,7 +60,7 @@ function deleteProject(projectId) {
             <EmptyStates title="Keine Projekte" description="Starte mit deinem ersten Projekt">
                 <RouterLink to="/new-project">
                     <Button>
-                        New Project
+                        Neues Projekt
                     </Button>
                 </RouterLink>
             </EmptyStates>
@@ -75,7 +73,7 @@ function deleteProject(projectId) {
                 <template v-slot:onItemOptions>
                     <RouterLink :to="'/projects/' + project.id"
                         class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
-                        View Project
+                        Projektdetails
                     </RouterLink>
                 </template>
                 <ContextMenu>

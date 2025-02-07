@@ -51,7 +51,7 @@ function deleteCredit(creditId) {
         <H1>{{ currentProject.name }}</H1>
 
         <div class="flex mt-6 items-center justify-between">
-            <H3>Immobilien Infos</H3>
+            <H3>Immobilieninformationen</H3>
             <RouterLink :to="'/new-project?edit=' + currentProject.id">
                 <Button>
                     Bearbeiten
@@ -62,7 +62,7 @@ function deleteCredit(creditId) {
         <Stats>
             <StatItem title="Anschaffungskosten" :value="currentProject.anschaffungskosten + ' €'" />
             <StatItem title="Miete" :value="currentProject.miete + ' €'" />
-            <StatItem title="Afa" :value="afa + ' €'" />
+            <StatItem title="Abschreibung für Abnutzung (AfA)" :value="afa + ' €'" />
         </Stats>
     </div>
 
@@ -70,7 +70,7 @@ function deleteCredit(creditId) {
         <H3>Deine Finanzierungsoptionen</H3>
         <RouterLink :to="'/projects/' + currentProject.id + '/credit'">
             <Button>
-                New Credit
+                Neuer Kredit
             </Button>
         </RouterLink>
     </div>
@@ -79,7 +79,7 @@ function deleteCredit(creditId) {
         <EmptyStates title="Keine Finanierungsoption" description="Füge eine neue Finanzierungsoption hinzu">
             <RouterLink :to="'/projects/' + currentProject.id + '/credit'">
                 <Button>
-                    New Credit
+                    Neuer Kredit
                 </Button>
             </RouterLink>
         </EmptyStates>
@@ -92,7 +92,7 @@ function deleteCredit(creditId) {
             <template v-slot:onItemOptions>
                 <RouterLink :to="'/projects/' + credit.projectId + '/credits/' + credit.id"
                     class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block">
-                    View Credit
+                    Kreditdetails
                 </RouterLink>
             </template>
             <ContextMenu>

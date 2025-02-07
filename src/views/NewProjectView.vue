@@ -42,16 +42,6 @@ if ("edit" in route.query) {
     marklerkostenProzent.value = currentProject.marklerkostenProzent;
 }
 
-const totalPrice = computed(() => {
-    let multiplier = 1.12;
-    if (bundesland.value === 'Berlin') {
-        multiplier = 1.16;
-    } else if (bundesland.value !== 'Nordrhein-Westfalen') {
-        multiplier = 1.17;
-    }
-    const total = (Number(kaufpreis.value) * multiplier) + Number(sarnierungskosten.value);
-    return total.toFixed(2);
-});
 
 function addProject() {
     if (!standort.value ||
@@ -108,21 +98,21 @@ function cancelButton() {
 <template>
     <div>
         <H1 class="mb-6">{{ pageTitle }}</H1>
-        <TwoColumnForm title="Projekt Informationen" description="">
+        <TwoColumnForm title="Projektinformationen" description="">
             <template v-slot:infos>
                 <div class="">
-                    <label class="block text-sm font-medium text-gray-700">Gesamt Kosten</label>
+                    <label class="block text-sm font-medium text-gray-700">Gesamtkosten</label>
                     <p>{{ totalPrice }} €</p>
                 </div>
             </template>
             <template v-slot:form>
-                <FormItem v-model="standort" label="Standort/Name" identifier="street" size="sm:col-span-6" />
+                <FormItem v-model="standort" label="Standort / Name des Projekts" identifier="street" size="sm:col-span-6" />
                 <FormItem v-model="kaufpreis" label="Kaufpreis" identifier="kaufpreis" type="number" />
-                <FormItem v-model="sarnierungskosten" label="Sarnierungskosten" identifier="sarnierungskosten"
+                <FormItem v-model="sarnierungskosten" label="Sanierungskosten" identifier="sanierungskosten"
                     type="number" />
-                <FormItem v-model="marklerkostenProzent" label="Marklerkosten in Prozent" identifier="marklerkostenProzent"
+                <FormItem v-model="marklerkostenProzent" label="Maklerkosten in Prozent" identifier="marklerkostenProzent"
                     type="number" />
-                <FormItem v-model="miete" label="Miete" identifier="miete" type="number" />
+                <FormItem v-model="miete" label="Monatliche Mieteinnahmen" identifier="miete" type="number" />
                 <FormItem v-model="plz" label="PLZ" identifier="plz" type="number" />
                 <FormItem v-model="stadt" label="Stadt" identifier="stadt" />
 
