@@ -29,16 +29,16 @@ const credits = useCreditsStore();
 const { findCreditById } = storeToRefs(credits);
 var currentCredit = null;
 
-const bank = ref();
-const verwendetesEigenkapital = ref();
-const zinsen = ref();
-const tilgung = ref();
-const zinsbindung = ref();
+const bank = ref('Kreissparkasse Köln');
+const verwendetesEigenkapital = ref(10000);
+const zinsen = ref(2,5);
+const tilgung = ref(2,5);
+const zinsbindung = ref(10);
 
 var pageTitle = 'Neue Finanizierugsoption';
 
 if ("edit" in route.query) {
-    var pageTitle = 'Finanizierugsoption Bearbeiten';
+    var pageTitle = 'Finanizierugsoption bearbeiten';
     currentCredit = findCreditById.value(route.query.edit);
 
     if (!currentCredit) {
@@ -111,7 +111,7 @@ function cancelButton() {
 <template>
     <Breadcrumbs>
         <BreadcrumbHomeItem />
-        <BreadcrumbItem title="projects" link="/" />
+        <BreadcrumbItem title="Projekte" link="/" />
         <BreadcrumbItem :title="currentProject.name" :link="'/projects/' + currentProject.id" />
         <BreadcrumbItem :title="pageTitle" />
     </Breadcrumbs>
@@ -129,9 +129,9 @@ function cancelButton() {
         </template>
         <div class="mt-6 flex items-center justify-end gap-x-6">
             <button v-on:click.prevent="cancelButton()" type="button"
-                class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+                class="text-sm/6 font-semibold text-gray-900">Abbrechen</button>
             <button v-on:click.prevent="addCredit()" type="submit"
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Speichern</button>
         </div>
     </TwoColumnForm>
 </template>

@@ -1,6 +1,7 @@
 <script setup>
 import Breadcrumbs from '@/components/navigation/Breadcrumbs.vue';
 import BreadcrumbHomeItem from '@/components/navigation/BreadcrumbHomeItem.vue';
+import BreadcrumbItem from '@/components/navigation/BreadcrumbItem.vue';
 import H1 from '@/components/typographie/H1.vue';
 import H3 from '@/components/typographie/H3.vue';
 import Stats from '@/components/stats/Stats.vue';
@@ -34,12 +35,14 @@ function deleteProject(projectId) {
     <main>
         <Breadcrumbs>
             <BreadcrumbHomeItem />
+            <BreadcrumbItem title="Projekte" link="/" />
+
         </Breadcrumbs>
     
-        <H1>{{ user.name }}'s Immobilien Portfolio</H1>
+        <H1>{{ user.name }}'s Immobilienportfolio</H1>
 
         <div class="flex mt-6 items-center justify-between">
-            <H3>Deine Infos</H3>
+            <H3>Deine Informationen</H3>
             <RouterLink to="/edit-profile">
                 <Button>
                     Bearbeiten
@@ -47,8 +50,8 @@ function deleteProject(projectId) {
             </RouterLink>
         </div>
         <Stats>
-            <StatItem title="Eigenkapital" :value="formatNumber(user.kapital)" />
-            <StatItem title="Jahreseinkommen" :value="formatNumber(user.einkommen)" />
+            <StatItem title="Eigenkapital" :value="formatNumber(user.kapital) + ' €'" />
+            <StatItem title="Jahresbruttoeinkommen" :value="formatNumber(user.einkommen) + ' €'" />
             <StatItem title="Steuerklasse" :value="user.steuerklasse" />
         </Stats>
         <div class="flex mt-6 items-center justify-between">
@@ -81,8 +84,8 @@ function deleteProject(projectId) {
                     </RouterLink>
                 </template>
                 <ContextMenu>
-                    <ContextMenuItem :link="'/new-project?edit=' + project.id" name="Edit" />
-                    <ContextMenuItem v-on:click="deleteProject(project.id)" link="/" name="Delete" />
+                    <ContextMenuItem :link="'/new-project?edit=' + project.id" name="Bearbeiten" />
+                    <ContextMenuItem v-on:click="deleteProject(project.id)" link="/" name="Löschen" />
                 </ContextMenu>
             </StackedListItem>
         </StackedList>

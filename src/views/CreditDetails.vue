@@ -71,7 +71,7 @@ const zinsenNeu = ref(3);
 <template>
     <Breadcrumbs>
         <BreadcrumbHomeItem />
-        <BreadcrumbItem title="projects" link="/" />
+        <BreadcrumbItem title="Projekte" link="/" />
         <BreadcrumbItem :title="currentProject.name" :link="'/projects/' + currentProject.id" />
         <BreadcrumbItem :title="currentCredit.bankname" />
     </Breadcrumbs>

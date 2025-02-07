@@ -46,7 +46,7 @@ function deleteCredit(creditId) {
     <div>
         <Breadcrumbs>
             <BreadcrumbHomeItem />
-            <BreadcrumbItem title="projects" link="/" />
+            <BreadcrumbItem title="Projekte" link="/" />
             <BreadcrumbItem :title="currentProject.name" :link="'/projects/' + currentProject.id" />
         </Breadcrumbs>
         <H1>{{ currentProject.name }}</H1>
@@ -97,8 +97,8 @@ function deleteCredit(creditId) {
                 </RouterLink>
             </template>
             <ContextMenu>
-                <ContextMenuItem :link="'/projects/' + currentProject.id + '/credit?edit=' + credit.id" name="Edit" />
-                <ContextMenuItem v-on:click="deleteCredit(credit.id)" link="#" name="Delete" />
+                <ContextMenuItem :link="'/projects/' + currentProject.id + '/credit?edit=' + credit.id" name="Bearbeiten" />
+                <ContextMenuItem v-on:click="deleteCredit(credit.id)" link="#" name="Löschen" />
             </ContextMenu>
         </StackedListCreditItem>
     </StackedList>

@@ -19,7 +19,7 @@ const model = defineModel()
                     <label 
                     :for="identifier"
                     class="block text-sm/6 font-medium text-gray-900">{{ label }}</label>
-                    <div class="mt-2 grid grid-cols-1">
+                    <div class="mt-2 grid grid-cols-1 gap-y-2">
                         <select 
                         v-model="model"
                         :id="identifier" 

@@ -11,13 +11,13 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter();
 const route = useRoute();
-const standort = ref();
-const kaufpreis = ref();
-const sarnierungskosten = ref();
-const marklerkostenProzent = ref(0);
-const plz = ref();
-const stadt = ref();
-const miete = ref();
+const standort = ref('Kasparstraße 45');
+const kaufpreis = ref(300000);
+const sarnierungskosten = ref(12000);
+const marklerkostenProzent = ref(3.57);
+const plz = ref(50670);
+const stadt = ref('Köln');
+const miete = ref(1100);
 const bundesland = ref('Nordrhein-Westfalen');
 var currentProject = null;
 
@@ -27,7 +27,7 @@ const { findProjectById } = storeToRefs(projects)
 var pageTitle = 'Neues Projekt erstellen';
 
 if ("edit" in route.query) {
-    var pageTitle = 'Projekt Bearbeiten';
+    var pageTitle = 'Projekt bearbeiten';
     currentProject = findProjectById.value(route.query.edit);
     if (!currentProject) {
         router.push('/');
@@ -100,10 +100,7 @@ function cancelButton() {
         <H1 class="mb-6">{{ pageTitle }}</H1>
         <TwoColumnForm title="Projektinformationen" description="">
             <template v-slot:infos>
-                <div class="">
-                    <label class="block text-sm font-medium text-gray-700">Gesamtkosten</label>
-                    <p>{{ totalPrice }} €</p>
-                </div>
+               
             </template>
             <template v-slot:form>
                 <FormItem v-model="standort" label="Standort / Name des Projekts" identifier="street" size="sm:col-span-6" />
@@ -138,9 +135,9 @@ function cancelButton() {
             </template>
             <div class="mt-6 flex items-center justify-end gap-x-6">
                 <button v-on:click.prevent="cancelButton()" type="button"
-                    class="text-sm/6 font-semibold text-gray-900">Cancel</button>
+                    class="text-sm/6 font-semibold text-gray-900">Abbrechen</button>
                 <button v-on:click.prevent="addProject()" type="submit"
-                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Speichern</button>
             </div>
         </TwoColumnForm>
     </div>
