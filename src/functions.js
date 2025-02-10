@@ -2,6 +2,16 @@ export function toEuro(euros) {
   return Math.floor(euros * 100) / 100;
 }
 
+
+// St = S0 * q^t - R * ((q^t - 1) / i)
+// St = Restschuld
+// S0 = Darlehensbetrag
+// q = 1 + i / 100 (Zinsfaktor)
+// t = Monate
+// R = Monatsrate
+// i = Zinssatz
+// nochmal durch 12 weil auf monate gerechnet
+
 export function restSchuldBerechung(schuld, monate, monatsRate, zinsen) {
   var q = 1 + zinsen / 1200;
   var restSchuld = toEuro(
